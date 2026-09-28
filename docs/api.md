@@ -16,15 +16,14 @@ curl "$BC250_BASE_URL/chat/completions" \
 |---|---|
 | `qwen3.5-9b` | Startup default and comparison baseline |
 | `qwen3.5-9b-aggressive` | First experimental candidate for the tested SSH loop |
-| `qwen3.5-9b-abliterated` | Comparative testing; imperfect task completion |
-| `llama3.1-8b-abliterated` | Text/review experiments; native tool format failed tests |
-| `dolphin3-llama3.1-8b` | Text/review experiments; incomplete SSH task execution |
+
+Huihui and the Llama variants were removed after evaluation. Q36 was tested through a separate loopback-only server and is not registered on this API. See [Q36 results](q36.md).
 
 Only one model resides in memory. Different model IDs used by concurrent clients can trigger repeated unload/load cycles. Cold requests need longer timeouts; the local test client allows 180 seconds. Use the explicit model ID in every request.
 
 The API does not establish SSH sessions by itself. A separate agent controller exposes tool schemas and executes model-requested actions. The tested controller had a dedicated SSH key restricted to the lab service. Administrator credentials were used by the fixture setup, never supplied to the model.
 
-The Llama templates shipped inside the downloaded GGUFs did not include tool definitions. Overrides were configured under `/etc/bc250-ai/templates`:
+The Llama templates shipped inside the downloaded GGUFs did not include tool definitions. During the earlier tests, overrides were configured under `/etc/bc250-ai/templates`:
 
 - Llama Abliterated: the pinned llama.cpp `meta-llama-Llama-3.1-8B-Instruct.jinja` template.
 - Dolphin: the pinned `Qwen-Qwen2.5-7B-Instruct.jinja` ChatML tool template, with its default assistant identity changed to Dolphin.

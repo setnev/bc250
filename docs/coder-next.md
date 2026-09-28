@@ -62,7 +62,7 @@ These are short, ordered observations from one session, not a steady-state throu
 
 The full model can execute on this BC250 with disk-backed CPU experts, but the tested configuration is much slower than the existing Qwen3.5-9B service. Repeated identical work benefits from caching; changing tasks continues to trigger substantial disk reads. No quality advantage was established by these timing tests.
 
-The production API was restored and verified with a real Qwen3.5 completion after testing. Coder-Next remains a staged experiment and was not added to the production model router. Its temporary benchmark services were removed after collecting evidence.
+The production API was restored and verified with a real Qwen3.5 completion after testing. Coder-Next was not added to the production model router. Its temporary weights were subsequently removed to reclaim disk space; manifests and benchmark evidence are retained. Its temporary benchmark services were removed after collecting evidence.
 
 ## Configuration and limits
 

@@ -2,7 +2,7 @@
 
 **8 Zen 2 cores · 16 GB shared memory · Vulkan inference · Qwen3.5-9B · OpenAI-compatible LAN API**
 
-My build log for turning an AMD BC250 into an inference server for internal application testing and server-administration experiments. The working configuration combines an eight-core BIOS setup with a software-applied 40-CU GPU unlock and an 8/8 memory split.
+My build log for turning an AMD BC250 into an inference server for internal application testing and server-administration experiments. The working configuration combines an eight-core BIOS setup with a software-applied 40-CU GPU unlock. The original measurements used an 8/8 memory split; the later Q36 evaluation moved to a 512 MiB GPU reservation and expanded GPU access to shared memory.
 
 The most useful result: **Qwen3.5-9B Q4_K_M generates about 52 tokens/sec in the isolated benchmark**, up from 36 tokens/sec at 24 CUs. The production API delivered about 49 tokens/sec in a separate short request.
 
@@ -18,7 +18,7 @@ The most useful result: **Qwen3.5-9B Q4_K_M generates about 52 tokens/sec in the
 |---|---|
 | Board | AMD BC250 / Cyan Skillfish, gfx1013 |
 | CPU | 8 cores / 16 threads after BIOS configuration; originally 6 / 12 |
-| Memory | 16 GB shared GDDR6; 8 GiB reserved GPU memory, about 7.5 GiB usable by Linux |
+| Memory | 16 GB shared GDDR6; now 512 MiB GPU reservation and about 14.85 GiB Linux RAM; original benchmarks used 8/8 |
 | GPU | 40 CUs routed at runtime; factory driver topology remains 24 |
 | Storage | 512 GB NVMe; approximately 100 GB root logical volume |
 | OS | Ubuntu 24.04.5 LTS |
@@ -67,6 +67,14 @@ I installed several community variants for internal testing. HauhauCS Aggressive
 The security-review fixture exposed unsupported findings and weak remediation in every tested model. These are experiments with measured limitations, not an endorsement of unattended security changes.
 
 [Model inventory and evaluation results →](docs/models.md)
+
+## Q36 / QuarkStar evaluation
+
+**Qwen3.6-35B-A3B mixed Q2 ran fully resident at 71.90 tok/s at 2K context, 70.09 at 4K and 64.09 at 8K**, averaged over three sweeps. Short API responses generated around 77–80 tok/s. All three isolated SSH repair cases passed, although each required retries after tool-argument type errors.
+
+This used a separate BC250-tuned Vulkan engine and a new memory layout. It is not an engine-only comparison with the earlier llama.cpp results. The default API remains Qwen3.5 plus HauhauCS Aggressive; the underperforming trial weights were removed.
+
+[Q36 configuration, raw benchmarks, consecutive prompts and agent findings →](docs/q36.md)
 
 ## Qwen3-Coder-Next experiment
 

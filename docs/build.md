@@ -54,7 +54,7 @@ The service is intended for a trusted LAN; this build did not configure Internet
 
 ## Memory and concurrency
 
-The tested operating point is 8 GiB reserved GPU memory, about 7.5 GiB Linux RAM, one resident model and one inference slot. Qwen variants use 8192 context; Llama variants use 4096. Context counts prompt plus generated output.
+The original tested operating point was 8 GiB reserved GPU memory, about 7.5 GiB Linux RAM, one resident model and one inference slot. The later [Q36 evaluation](q36.md) changed this to a 512 MiB reservation, about 14.85 GiB Linux RAM, and expanded GTT/TTM limits. That new layout remains installed; the default Qwen3.5 benchmark and both retained API models were rechecked. Retained Qwen variants use 8192 context; historical Llama tests used 4096. Context counts prompt plus generated output.
 
 A 12 GiB GPU / 4 GiB CPU allocation produced heavy swapping with this setup. Larger reserved GPU memory did not automatically translate to better Vulkan inference. The GTT budget also fell as Linux-visible RAM decreased.
 

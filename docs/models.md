@@ -1,6 +1,6 @@
 # Model inventory and agent experiments
 
-All weights are GGUF Q4_K_M files. Their [source revisions and SHA-256 values](../benchmarks/model-manifests.json) were pinned and verified before activation. Only one model is loaded at a time.
+The five historical candidates below used GGUF Q4_K_M files. Their [source revisions and SHA-256 values](../benchmarks/model-manifests.json) were pinned and verified before activation. Only one model is loaded at a time. The current router retains **Qwen3.5-9B and HauhauCS Aggressive only**. Huihui, both Llama variants and the separate Coder-Next trial weights were removed after evaluation; their results remain below. [Q36 / Qwen3.6 findings](q36.md) describe a separate staged candidate.
 
 | Model | API ID | Configured context | Publisher |
 |---|---|---:|---|
@@ -12,7 +12,7 @@ All weights are GGUF Q4_K_M files. Their [source revisions and SHA-256 values](.
 
 The Qwen variants declare Apache 2.0; the Llama variants use the Llama 3.1 license. “Uncensored,” “aggressive” and “abliterated” describe the publishers' variants. These tests do not measure a universal refusal rate or establish that capabilities were preserved.
 
-The earlier Qwen3-8B and heavily quantized Qwen3.8-27B trial models were removed; they are not part of the final inventory. No vision projector was installed. Reasoning is disabled in the serving presets.
+The earlier Qwen3-8B and heavily quantized Qwen3.8-27B trial models were removed; they are not part of the current inventory. No vision projector was installed. Reasoning is disabled in the serving presets.
 
 ## Real SSH tool-use test
 

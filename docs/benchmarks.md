@@ -4,6 +4,8 @@ The chart and README table describe one BC250. They are local measurements, not 
 
 For the separate 80B model experiment, see [Qwen3-Coder-Next benchmarks and consecutive requests](coder-next.md). That test uses different prompt/output lengths and CPU expert offloading; its results should not be substituted into the GPU-unlock comparison below.
 
+The later [Q36 evaluation](q36.md) reports resident Qwen3.6 performance after a memory-layout change, with its own methodology and raw samples.
+
 ## Paired GPU comparison
 
 Date: 2026-09-28. Eight CPU cores / 16 threads online. An 8 GiB GPU reservation leaves approximately 7.5 GiB usable Linux RAM. CPU inference threads were held at six for the 24/40-CU pair, then separately tested at eight with 40 CUs.

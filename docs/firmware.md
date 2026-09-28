@@ -93,3 +93,7 @@ This is software persistence: the saved table is reapplied on startup. It does n
 To disable startup replay, stop inference, disable the CU service, remove the AI service's CU dependency drop-in, reload systemd and restore stock dispatch with the reviewed manager. A reboot without replay restores driver initialization state. Disabling the CU service alone is insufficient if another unit still pulls it in through `Wants=`.
 
 A frozen system may require a physical reset. Do not enable startup replay until temporary operation is verified on the particular board. The eight CPU cores and firmware recovery path are separate from this GPU runtime rollback.
+
+## Later memory-layout experiment
+
+The subsequent [Q36 evaluation](q36.md) changed the GPU reservation from 8 GiB to 512 MiB and expanded GTT/TTM limits. CPU and GPU unlocks survived the reboot. The earlier 8/8 results above remain historical measurements; the new layout is now installed.
