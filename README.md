@@ -4,7 +4,7 @@
 
 My build log for turning an AMD BC250 into an inference server for internal application testing and server-administration experiments. The working configuration combines an eight-core BIOS setup with a software-applied 40-CU GPU unlock. The original measurements used an 8/8 memory split; the later Q36 evaluation moved to a 512 MiB GPU reservation and expanded GPU access to shared memory.
 
-The most useful result: **Qwen3.5-9B Q4_K_M generates about 52 tokens/sec in the isolated benchmark**, up from 36 tokens/sec at 24 CUs. The production API delivered about 49 tokens/sec in a separate short request.
+The original CU-unlock result: **Qwen3.5-9B Q4_K_M generates about 52 tokens/sec in the isolated benchmark**, up from 36 tokens/sec at 24 CUs. The production API delivered about 49 tokens/sec in a separate short request.
 
 ![Measured Qwen3.5-9B performance at 24 and 40 CUs](assets/benchmark.svg)
 
@@ -20,6 +20,9 @@ The most useful result: **Qwen3.5-9B Q4_K_M generates about 52 tokens/sec in the
 | CPU | 8 cores / 16 threads after BIOS configuration; originally 6 / 12 |
 | Memory | 16 GB shared GDDR6; now 512 MiB GPU reservation and about 14.85 GiB Linux RAM; original benchmarks used 8/8 |
 | GPU | 40 CUs routed at runtime; factory driver topology remains 24 |
+| GPU clock | 1,700 MHz at the stock 925 mV setting; monitored profile with 75°C fallback |
+| PSU | 400 W Apevia ITX; exact model not recorded |
+| Cooling | 120 mm fans through stock heatsink and rear spreader |
 | Storage | 512 GB NVMe; approximately 100 GB root logical volume |
 | OS | Ubuntu 24.04.5 LTS |
 | Kernel | 6.8.0-142-generic |
@@ -28,7 +31,7 @@ The most useful result: **Qwen3.5-9B Q4_K_M generates about 52 tokens/sec in the
 | Default model | Qwen3.5-9B Q4_K_M, 8K context, reasoning off |
 | Serving | LAN API, API-key authentication, systemd, one model resident at a time |
 
-The case, power supply, fan arrangement, wall power and total purchase cost have not been recorded for this write-up. There are no power-efficiency claims here.
+The case, wall power and total purchase cost have not been recorded. PSU and cooling details are owner-reported; there are no power-efficiency claims here.
 
 ## What the GPU unlock changed
 
@@ -75,6 +78,12 @@ The security-review fixture exposed unsupported findings and weak remediation in
 This used a separate BC250-tuned Vulkan engine and a new memory layout. It is not an engine-only comparison with the earlier llama.cpp results. The default API remains Qwen3.5 plus HauhauCS Aggressive; the underperforming trial weights were removed.
 
 [Q36 configuration, raw benchmarks, consecutive prompts and agent findings →](docs/q36.md)
+
+## Further performance tuning
+
+A guarded **1,700 MHz / 925 mV** profile improved Q36 prefill by **11–13%** and generation by **6–7%** versus fresh-process measurements at 1,500 MHz. Qwen3.5 generation increased from **52.31 to 54.72 tok/s**. Compute checks passed with zero mismatches; the highest sampled GPU edge temperature was 67°C.
+
+[Paired clock benchmarks, profile controls and rollback →](docs/performance-tuning.md)
 
 ## Qwen3-Coder-Next experiment
 
