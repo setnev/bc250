@@ -91,6 +91,12 @@ The full 80B model also ran in **UD-IQ1_S** using CPU expert offloading, Vulkan 
 
 [Coder-Next results, consecutive prompts and reproduction details →](docs/coder-next.md)
 
+## Text-to-image comparison
+
+At a matched **1,200 MHz**, FLUX.2 Klein 4B Q8_0 averaged **12.88 seconds at 512×512** and **47.69 seconds at 1024×1024**. Z-Image-Turbo Q5_0 averaged **28.81** and **123.87 seconds**, respectively. Higher-clock Z-Image trials reached the test's 75°C cutoff; the completed comparison uses the lower clock for both models.
+
+[Standalone image benchmark: specifications, model pins, samples and reproduction →](docs/image-generation.md)
+
 ## Architecture
 
 ```mermaid
