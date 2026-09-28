@@ -68,6 +68,12 @@ The security-review fixture exposed unsupported findings and weak remediation in
 
 [Model inventory and evaluation results →](docs/models.md)
 
+## Qwen3-Coder-Next experiment
+
+The full 80B model also ran in **UD-IQ1_S** using CPU expert offloading, Vulkan and disk-backed memory mapping. Its 21.51 GB weight file exceeds this board's entire memory pool. The repeated benchmark averaged **1.85 generated tokens/sec**, versus **51.76** for Qwen3.5-9B at the same test lengths. Repeating an identical API prompt improved generation from **1.86 to 3.02 tok/s**; an evolving three-turn conversation measured **2.05, 1.75 and 1.61 tok/s** despite prompt-cache reuse.
+
+[Coder-Next results, consecutive prompts and reproduction details →](docs/coder-next.md)
+
 ## Architecture
 
 ```mermaid
