@@ -1,0 +1,46 @@
+version = 1
+[*]
+ctx-size = 4096
+parallel = 1
+threads = 6
+n-gpu-layers = 99
+flash-attn = on
+reasoning = off
+jinja = true
+
+[qwen3.5-9b]
+model = /var/lib/bc250-ai/models/Qwen3.5-9B-Q4_K_M.gguf
+ctx-size = 8192
+batch-size = 128
+ubatch-size = 128
+load-on-startup = true
+
+[qwen3.5-9b-abliterated]
+model = /var/lib/bc250-ai/models/Huihui-Qwen3.5-9B-abliterated.Q4_K_M.gguf
+ctx-size = 8192
+batch-size = 128
+ubatch-size = 128
+load-on-startup = false
+
+[qwen3.5-9b-aggressive]
+model = /var/lib/bc250-ai/models/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive-Q4_K_M.gguf
+ctx-size = 8192
+batch-size = 128
+ubatch-size = 128
+load-on-startup = false
+
+[llama3.1-8b-abliterated]
+model = /var/lib/bc250-ai/models/meta-llama-3.1-8b-instruct-abliterated.Q4_K_M.gguf
+ctx-size = 4096
+batch-size = 128
+ubatch-size = 128
+load-on-startup = false
+chat-template-file = /etc/bc250-ai/templates/llama3.1-tools.jinja
+
+[dolphin3-llama3.1-8b]
+model = /var/lib/bc250-ai/models/Dolphin3.0-Llama3.1-8B-Q4_K_M.gguf
+ctx-size = 4096
+batch-size = 128
+ubatch-size = 128
+load-on-startup = false
+chat-template-file = /etc/bc250-ai/templates/dolphin-chatml-tools.jinja
