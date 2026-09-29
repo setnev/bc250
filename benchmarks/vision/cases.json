@@ -1,0 +1,78 @@
+[
+  {
+    "id": "dashboard",
+    "prompt": "Read the dashboard. Return JSON with keys degraded_service, cpu_percent (integer), ram_gb (number), queue_jobs (integer).",
+    "expected": {
+      "degraded_service": "worker",
+      "cpu_percent": 91,
+      "ram_gb": 5.8,
+      "queue_jobs": 137
+    },
+    "image": "dashboard.png",
+    "sha256": "16ba4e78ae208b06075623a922e48a19d1f8ab1da59a8c3f3d074069743fc722"
+  },
+  {
+    "id": "terminal",
+    "prompt": "Read this terminal screenshot. Return JSON with keys error_code, database_port (integer), exit_status (integer), changes_applied (boolean).",
+    "expected": {
+      "error_code": "E_CONN_REFUSED",
+      "database_port": 5432,
+      "exit_status": 2,
+      "changes_applied": false
+    },
+    "image": "terminal.png",
+    "sha256": "c5d925edd80195d429ead387b3b323d9f086909fb9b854caa3f9af435b8fe7f4"
+  },
+  {
+    "id": "ocr",
+    "prompt": "Transcribe the equipment label. Return JSON with keys model, batch, input, code, calibration. Preserve punctuation and distinguish similar characters.",
+    "expected": {
+      "model": "AX-250",
+      "batch": "TEST-042",
+      "input": "12 V DC / 8 A",
+      "code": "O0-I1-S5-B8",
+      "calibration": "2026-01-01"
+    },
+    "image": "ocr.png",
+    "sha256": "979fc95f0cc7ab2fd9c7a8af85d301568c0c4d98e9a469e0f79dcb50992d9680"
+  },
+  {
+    "id": "diagram",
+    "prompt": "Read the arrow directions. Return JSON with keys main_path (array of three labels in order), branch_source, branch_target.",
+    "expected": {
+      "main_path": [
+        "Client",
+        "API",
+        "Database"
+      ],
+      "branch_source": "API",
+      "branch_target": "Cache"
+    },
+    "image": "diagram.png",
+    "sha256": "ef97bc826a64049117ceab4b3e0b11440794586b4dbe812aaf45f8ebfada93a8"
+  },
+  {
+    "id": "chart",
+    "prompt": "Read the bar chart. Return JSON with keys highest_worker, highest_count (integer), total_jobs (integer), difference_D_A (integer).",
+    "expected": {
+      "highest_worker": "D",
+      "highest_count": 35,
+      "total_jobs": 94,
+      "difference_D_A": 23
+    },
+    "image": "chart.png",
+    "sha256": "103005d633bca4e4ef982f3a11702e4243a0ff8ac85fd818ae0bc7db08a0975f"
+  },
+  {
+    "id": "spatial",
+    "prompt": "Describe the layout. Return JSON with keys top_left, top_right, bottom_center, circle_count (integer). Use color and shape names.",
+    "expected": {
+      "top_left": "red circle",
+      "top_right": "blue square",
+      "bottom_center": "green triangle",
+      "circle_count": 1
+    },
+    "image": "spatial.png",
+    "sha256": "75f050ee8cc60c3d4d69cd9fbdaa27af71e828827e9c61a52682ae0d4f62b19c"
+  }
+]
