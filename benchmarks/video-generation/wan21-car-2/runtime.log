@@ -1,0 +1,78 @@
+ggml_vulkan: Found 1 Vulkan devices:
+ggml_vulkan: 0 = AMD BC-250 (RADV GFX1013) (radv) | uma: 1 | fp16: 1 | bf16: 0 | fp4: 0 | warp size: 32 | shared memory: 65536 | int dot: 0 | matrix cores: none
+[INFO   ] diffusion_engine.cpp:732  - loading diffusion model from '/opt/bc250-mod-prep/video-bench/models/wan2.1_t2v_1.3B_fp16.safetensors'
+[INFO   ] model_loader.cpp:221  - load /opt/bc250-mod-prep/video-bench/models/wan2.1_t2v_1.3B_fp16.safetensors using safetensors format
+[INFO   ] diffusion_engine.cpp:774  - loading t5xxl from '/opt/bc250-mod-prep/video-bench/models/umt5-xxl-encoder-Q4_K_M.gguf'
+[INFO   ] model_loader.cpp:215  - load /opt/bc250-mod-prep/video-bench/models/umt5-xxl-encoder-Q4_K_M.gguf using gguf format
+[INFO   ] diffusion_engine.cpp:803  - loading vae from '/opt/bc250-mod-prep/video-bench/models/wan_2.1_vae.safetensors'
+[INFO   ] model_loader.cpp:221  - load /opt/bc250-mod-prep/video-bench/models/wan_2.1_vae.safetensors using safetensors format
+[INFO   ] diffusion_engine.cpp:995  - Version: Wan 2.x
+[INFO   ] diffusion_engine.cpp:1522 - Weight type stat:                      f32: 75   |     f16: 823  |    q4_K: 144  |    q6_K: 25   |    bf16: 194
+[INFO   ] diffusion_engine.cpp:1523 - Conditioner weight type stat:          f32: 73   |    q4_K: 144  |    q6_K: 25
+[INFO   ] diffusion_engine.cpp:1524 - Diffusion model weight type stat:      f32: 2    |     f16: 823
+[INFO   ] diffusion_engine.cpp:1525 - VAE weight type stat:                 bf16: 194
+[INFO   ] model_loader.cpp:878  - using mmap for '/opt/bc250-mod-prep/video-bench/models/wan2.1_t2v_1.3B_fp16.safetensors'
+[INFO   ] model_loader.cpp:878  - using mmap for '/opt/bc250-mod-prep/video-bench/models/umt5-xxl-encoder-Q4_K_M.gguf'
+[INFO   ] model_loader.cpp:878  - using mmap for '/opt/bc250-mod-prep/video-bench/models/wan_2.1_vae.safetensors'
+[INFO   ] wan.hpp:967  - Wan2.1-T2V-1.3B
+[INFO   ] model_builders.cpp:625  - using VAE for encoding / decoding
+[INFO   ] diffusion_engine.cpp:1202 - Using flash attention in the diffusion model
+[INFO   ] diffusion_engine.cpp:1327 - total params memory size = 6430.76MB (VRAM 0.00MB, RAM 6430.76MB): text_encoders 3479.75MB(RAM), diffusion_model 2708.92MB(RAM), vae 242.10MB(RAM), controlnet 0.00MB(N/A), extensions 0.00MB(N/A)
+[INFO   ] diffusion_engine.cpp:1466 - running in FLOW mode
+[INFO   ] denoiser.hpp:1129 - get_sigmas with discrete scheduler
+[INFO   ] request.cpp:420  - sampling using Euler method
+[INFO   ] ggml_graph_cut.cpp:1032 - t5 build cached graph cut plan done (taking 2 ms)
+[INFO   ] model_loader.cpp:1023 - memory-mapped 242 tensors in 1 files (3479.75 MB), taking 0.00s
+
+  |#####                                             | 21/242 - 0.00MB/s
+  |##################################################| 242/242 - 0.00MB/s
+[INFO   ] model_loader.cpp:1378 - loading tensors completed, taking 0.20s (read: 0.00s, memcpy: 0.00s, convert: 0.00s, copy_to_backend: 0.00s)
+[INFO   ] video.cpp:1212 - get_learned_condition completed, taking 4.82s
+[INFO   ] video.cpp:1612 - generate_video 512x288x33
+[INFO   ] ggml_graph_cut.cpp:1032 - Wan2.1-T2V-1.3B build cached graph cut plan done (taking 5 ms)
+[INFO   ] model_loader.cpp:1023 - memory-mapped 307 tensors in 1 files (2703.94 MB), taking 0.00s
+
+  |#                                                 | 5/825 - 2.93MB/s
+  |##################################################| 825/825 - 13.77MB/s
+[INFO   ] model_loader.cpp:1378 - loading tensors completed, taking 0.20s (read: 0.00s, memcpy: 0.00s, convert: 0.00s, copy_to_backend: 0.00s)
+
+  |==>                                               | 1/20 - 11.09s/it
+  |=====>                                            | 2/20 - 9.76s/it
+  |=======>                                          | 3/20 - 9.76s/it
+  |==========>                                       | 4/20 - 9.76s/it
+  |============>                                     | 5/20 - 9.76s/it
+  |===============>                                  | 6/20 - 9.76s/it
+  |=================>                                | 7/20 - 9.76s/it
+  |====================>                             | 8/20 - 9.76s/it
+  |======================>                           | 9/20 - 9.76s/it
+  |=========================>                        | 10/20 - 9.76s/it
+  |===========================>                      | 11/20 - 9.76s/it
+  |==============================>                   | 12/20 - 9.75s/it
+  |================================>                 | 13/20 - 9.75s/it
+  |===================================>              | 14/20 - 9.76s/it
+  |=====================================>            | 15/20 - 9.75s/it
+  |========================================>         | 16/20 - 9.75s/it
+  |==========================================>       | 17/20 - 9.75s/it
+  |=============================================>    | 18/20 - 9.75s/it
+  |===============================================>  | 19/20 - 9.75s/it
+  |==================================================| 20/20 - 9.75s/it
+[INFO   ] video.cpp:1712 - sampling completed, taking 196.49s
+[INFO   ] video.cpp:1856 - generating latent video completed, taking 196.51s
+[INFO   ] ggml_graph_cut.cpp:1032 - wan_vae build cached graph cut plan done (taking 1 ms)
+[INFO   ] model_loader.cpp:1023 - memory-mapped 0 tensors in 0 files (0.00 MB), taking 0.00s
+
+  |##                                                | 4/108 - 0.00MB/s
+  |##################################################| 108/108 - 695.52MB/s
+[INFO   ] model_loader.cpp:1378 - loading tensors completed, taking 0.20s (read: 0.01s, memcpy: 0.00s, convert: 0.06s, copy_to_backend: 0.00s)
+[INFO   ] ggml_graph_cut.cpp:1032 - wan_vae build cached graph cut plan done (taking 2 ms)
+[INFO   ] ggml_graph_cut.cpp:1032 - wan_vae build cached graph cut plan done (taking 0 ms)
+
+  |========>                                         | 1/6 - 12.37s/it
+  |================>                                 | 2/6 - 12.07s/it
+  |=========================>                        | 3/6 - 12.10s/it
+  |=================================>                | 4/6 - 12.08s/it
+  |=========================================>        | 5/6 - 12.07s/it
+  |==================================================| 6/6 - 12.14s/it
+[INFO   ] video.cpp:1243 - decode_first_stage completed, taking 72.89s
+[INFO   ] video.cpp:1944 - generate_video completed in 274.29s
+[INFO   ] main.cpp:547  - save result video to '/opt/bc250-mod-prep/video-bench/results/wan21-car-2/raw.avi'

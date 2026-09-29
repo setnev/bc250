@@ -97,6 +97,12 @@ At a matched **1,200 MHz**, FLUX.2 Klein 4B Q8_0 averaged **12.88 seconds at 512
 
 [Standalone image benchmark: specifications, model pins, samples and reproduction →](docs/image-generation.md)
 
+## Video generation
+
+Wan2.1 1.3B FP16 and Wan2.2 5B Q4_K_M generated 33-frame, 832×480 clips in 16m31s and 9m50s respectively. Sampled outputs had substantial quality and prompt-adherence problems; CPU VAE decoding did not fix the tested waterfall artifacts. Eleven runs include consecutive prompts and a matched decoder control.
+
+[Standalone video benchmark, samples, and reproduction settings](docs/video-generation.md)
+
 ## Vision models
 
 At 1,700 MHz, Qwen3.5-9B, Qwen3.5-4B, and Gemma 3 4B completed 63 image-input requests. Warm decode rates were **50.8 / 81.6 / 90.4 tok/s**; structured field scores were **23 / 20 / 17 out of 24** on six synthetic fixtures. Repeated images reduced input latency much more than they changed decode speed.
