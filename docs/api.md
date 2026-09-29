@@ -35,3 +35,5 @@ The Llama templates shipped inside the downloaded GGUFs did not include tool def
 - Dolphin: the pinned `Qwen-Qwen2.5-7B-Instruct.jinja` ChatML tool template, with its default assistant identity changed to Dolphin.
 
 This enabled tool-schema delivery but did not establish reliable agent behavior. Llama produced malformed native tool output; Dolphin made real calls but did not consistently finish and verify repairs. See [the evaluation](models.md).
+
+CPU power selection is request-scoped: `performance` with a 100 µs PM QoS request during inference, then `schedutil` with no controller-owned latency constraint immediately afterward. `/v1/hardware` includes a `cpu` object with mode and lease status. Model unloading still occurs after 60 seconds.

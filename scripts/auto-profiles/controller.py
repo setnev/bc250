@@ -3,6 +3,7 @@
 import json,os,pathlib,pwd,signal,socket,socketserver,struct,subprocess,sys,threading,time
 CONFIG=pathlib.Path(os.environ.get('BC250_PROFILE_CONFIG','/etc/bc250-ai/profiles.json'))
 CFG=json.loads(CONFIG.read_text());CONTROL=CFG['clock_control'];SOCKET=CFG['socket']
+cpu=None
 lock=threading.RLock();state={'profile':None,'model':None,'latched':False};done=threading.Event()
 def clock(*args):return json.loads(subprocess.check_output(['/usr/bin/python3',CONTROL,*map(str,args)],text=True,timeout=5))
 def temperature():
@@ -23,16 +24,31 @@ def stop_backend():
 
 def trip(reason):
  state.update(latched=True,error=reason)
- try:apply('idle')
- finally:stop_backend()
+ try:
+  if cpu:cpu.idle()
+ finally:
+  try:apply('idle')
+  finally:stop_backend()
  print(json.dumps({'event':'latched','reason':reason}),flush=True)
 
 def dispatch(request):
  with lock:
   op=request.get('op')
-  if op=='status':return {**state,'temperature_c':temperature()}
+  if op=='status':return {**state,'temperature_c':temperature(),'cpu':cpu.status() if cpu else None}
+  if op=='cpu_idle':
+   if cpu:cpu.idle()
+   return dict(state)
+  if op=='cpu_active':
+   if state['latched']:raise RuntimeError('Hardware guard latched')
+   if cpu:cpu.boost()
+   return dict(state)
   if op=='abort':
-   try:apply('idle');stop_backend()
+   try:
+    try:
+     if cpu:cpu.idle()
+    finally:
+     try:apply('idle')
+     finally:stop_backend()
    except Exception:
     state['latched']=True;raise
    if not state['latched']:subprocess.run(['systemctl','start','bc250-ai.service'],check=True,timeout=45)
@@ -41,7 +57,9 @@ def dispatch(request):
   if state['latched']:raise RuntimeError('Thermal/hardware guard latched; operator review required')
   if temperature()>=CFG['cutoff_c']:
    trip('temperature cutoff');raise RuntimeError('Temperature cutoff')
-  if op=='idle':apply('idle')
+  if op=='idle':
+   if cpu:cpu.idle()
+   apply('idle')
   else:
    model=request.get('model')
    if model not in CFG['models']:raise ValueError('Unknown model')
@@ -73,6 +91,7 @@ def guard():
   with lock:
    if state['latched']:continue
    try:
+    if cpu:cpu.expire()
     if temperature()>=CFG['cutoff_c']:trip('temperature cutoff')
     elif ticks%20==0 and state['profile']:
      a=clock();t=CFG['profiles'][state['profile']]
@@ -83,6 +102,9 @@ def guard():
    ticks+=1
 
 def main():
+ global cpu
+ from cpu_power import CpuPower
+ cpu=CpuPower()
  if pathlib.Path(SOCKET).exists():pathlib.Path(SOCKET).unlink()
  server=Server(SOCKET,Handler);os.chown(SOCKET,0,pwd.getpwnam(CFG['client_user']).pw_gid);os.chmod(SOCKET,0o660)
  apply('idle');threading.Thread(target=guard,daemon=True).start()
@@ -91,5 +113,7 @@ def main():
  try:server.serve_forever(poll_interval=.5)
  finally:
   done.set();server.server_close()
-  with lock:clock('restore')
+  with lock:
+   if cpu:cpu.restore()
+   clock('restore')
 if __name__=='__main__':main()

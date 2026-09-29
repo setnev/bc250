@@ -8,6 +8,7 @@ Before=bc250-ai.service
 Type=simple
 ExecStart=/usr/bin/python3 /usr/local/libexec/bc250-profile-controller.py
 ExecStopPost=/usr/bin/python3 /usr/local/libexec/bc250-profile-clock.py restore
+ExecStopPost=/usr/bin/python3 /usr/local/libexec/cpu_power.py
 RuntimeDirectory=bc250-profile
 RuntimeDirectoryMode=0755
 Restart=on-failure
@@ -16,7 +17,7 @@ TimeoutStopSec=15
 NoNewPrivileges=true
 ProtectHome=true
 ProtectSystem=strict
-ReadWritePaths=/run/bc250-profile
+ReadWritePaths=/run/bc250-profile /sys/devices/system/cpu
 
 [Install]
 WantedBy=multi-user.target

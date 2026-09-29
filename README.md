@@ -170,3 +170,5 @@ The format was inspired by [akandr/bc250](https://github.com/akandr/bc250). This
 - [llama.cpp](https://github.com/ggml-org/llama.cpp), [Mesa](https://www.mesa3d.org/), and the model authors linked in [the model notes](docs/models.md)
 
 Firmware images, model weights, credentials, SSH keys and device-specific recovery dumps are not distributed here. Upstream software and models retain their respective licenses.
+
+CPU power handling now releases performance and latency constraints immediately after inference, with a bounded lease for failed clients. [CPU idle and response measurements](docs/cpu-power.md).

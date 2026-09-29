@@ -67,6 +67,23 @@ class GatewayTests(unittest.TestCase):
   self.assertEqual(self.request()[0],200)
   self.assertEqual([x[0] for x in self.events],['profile','start','end'])
 
+ def test_cpu_boost_is_released_after_response(self):
+  ops=[];original=self.g.control
+  def control(op,model=None):ops.append(op);return original(op,model)
+  self.g.control=control
+  self.assertEqual(self.request()[0],200)
+  self.assertEqual(ops,['cpu_active','apply','cpu_idle'])
+  self.assertFalse(self.g.CPU_BUSY.is_set())
+ def test_cpu_boost_is_released_after_backend_failure(self):
+  ops=[];original=self.g.control
+  def control(op,model=None):ops.append(op);return original(op,model)
+  self.g.control=control
+  def fail(model):raise RuntimeError('backend unavailable')
+  self.g.ensure=fail
+  self.assertEqual(self.request()[0],503)
+  self.assertEqual(ops,['cpu_active','abort','cpu_idle'])
+  self.assertFalse(self.g.CPU_BUSY.is_set())
+
 class ControllerTests(unittest.TestCase):
  def test_named_allowlist_and_latched_thermal_fallback(self):
   with tempfile.TemporaryDirectory() as td:
@@ -85,4 +102,9 @@ class ControllerTests(unittest.TestCase):
    self.assertTrue(m.state['latched']);self.assertEqual(registers['gfx_frequency_mhz'],1200);self.assertEqual(stopped,[True])
    m.temperature=lambda:50
    with self.assertRaises(RuntimeError):m.dispatch({'op':'apply','model':'a'})
+   class BrokenCpu:
+    def idle(self):raise OSError('CPU sysfs unavailable')
+   m.cpu=BrokenCpu()
+   with self.assertRaises(OSError):m.trip('test CPU write failure')
+   self.assertEqual(stopped,[True,True])
 if __name__=='__main__':unittest.main()

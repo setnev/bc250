@@ -3,6 +3,7 @@
 import hmac,http.client,http.server,json,os,pathlib,socket,threading,time
 CFG=json.loads(pathlib.Path(os.environ.get('BC250_GATEWAY_CONFIG','/etc/bc250-ai/gateway.json')).read_text())
 KEY=pathlib.Path(CFG['key_file']).read_text().strip()
+CPU_BUSY=threading.Event();CPU_LOCK=threading.Lock();IDLE_WAKE=threading.Event()
 GATE=threading.Lock();active=None;last_used=time.monotonic()
 def control(op,model=None):
  with socket.socket(socket.AF_UNIX,socket.SOCK_STREAM) as s:
@@ -70,16 +71,26 @@ def ensure(model):
  active=model
  return profile
 
+def cpu_lease():
+ while True:
+  time.sleep(20)
+  with CPU_LOCK:
+   if CPU_BUSY.is_set():
+    try:control('cpu_active')
+    except Exception:pass # Lease expires if the controller cannot be reached.
+
 def idle():
  global last_used
  while True:
-  time.sleep(1)
-  if time.monotonic()-last_used<CFG.get('idle_seconds',60):continue
+  delay=1
   if GATE.acquire(blocking=False):
    try:
-    if active is not None and time.monotonic()-last_used>=CFG.get('idle_seconds',60):unload();control('idle')
-   except Exception:pass
+    remaining=CFG.get('idle_seconds',60)-(time.monotonic()-last_used)
+    if active is not None and remaining<=0:unload();control('idle')
+    delay=max(.1,remaining) if active is not None else None
+   except Exception:delay=5
    finally:GATE.release()
+  IDLE_WAKE.wait(delay);IDLE_WAKE.clear()
 
 class Handler(http.server.BaseHTTPRequestHandler):
  protocol_version='HTTP/1.1'
@@ -123,6 +134,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
    if self.path=='/models/unload':
     if active==model:unload();control('idle')
     self.reply(200,{'success':True});return
+   with CPU_LOCK:CPU_BUSY.set();control('cpu_active')
    profile=ensure(model)
    if self.path=='/models/load':self.reply(200,{'success':True,'profile':profile['profile']});return
    c=connection();c.request('POST',self.path,body=body,headers={'Content-Type':'application/json','Authorization':'Bearer '+KEY})
@@ -146,7 +158,11 @@ class Handler(http.server.BaseHTTPRequestHandler):
     except OSError:pass
   finally:
    if c:c.close()
-   last_used=time.monotonic();self.close_connection=True;GATE.release()
+   with CPU_LOCK:
+    CPU_BUSY.clear()
+    try:control('cpu_idle')
+    except Exception:pass # Controller lease bounds a lost release.
+   last_used=time.monotonic();self.close_connection=True;GATE.release();IDLE_WAKE.set()
 
 class Server(http.server.ThreadingHTTPServer):
  daemon_threads=True
@@ -161,5 +177,6 @@ def main():
     if time.monotonic()>deadline:raise
     time.sleep(1)
  threading.Thread(target=idle,daemon=True).start()
+ threading.Thread(target=cpu_lease,daemon=True).start()
  Server((CFG['listen_host'],CFG['listen_port']),Handler).serve_forever()
 if __name__=='__main__':main()
