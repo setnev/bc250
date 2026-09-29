@@ -1,0 +1,22 @@
+[Unit]
+Description=BC250 named clock and voltage profiles with thermal guard
+Wants=bc250-cu-live-manager.service
+After=bc250-cu-live-manager.service
+Before=bc250-ai.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /usr/local/libexec/bc250-profile-controller.py
+ExecStopPost=/usr/bin/python3 /usr/local/libexec/bc250-profile-clock.py restore
+RuntimeDirectory=bc250-profile
+RuntimeDirectoryMode=0755
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=15
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/run/bc250-profile
+
+[Install]
+WantedBy=multi-user.target

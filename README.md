@@ -20,7 +20,7 @@ The original CU-unlock result: **Qwen3.5-9B Q4_K_M generates about 52 tokens/sec
 | CPU | 8 cores / 16 threads after BIOS configuration; originally 6 / 12 |
 | Memory | 16 GB shared GDDR6; now 512 MiB GPU reservation and about 14.85 GiB Linux RAM; original benchmarks used 8/8 |
 | GPU | 40 CUs routed at runtime; factory driver topology remains 24 |
-| GPU clock | 1,700 MHz at the stock 925 mV setting; monitored profile with 75°C fallback |
+| GPU clock | Automatic model profiles: Qwen 1,700 MHz / 912.5 mV; Gemma 1,800 MHz / 925 mV; 85°C guard |
 | PSU | 400 W Apevia ITX; exact model not recorded |
 | Cooling | 120 mm fans through stock heatsink and rear spreader |
 | Storage | 512 GB NVMe; approximately 100 GB root logical volume |
@@ -28,7 +28,7 @@ The original CU-unlock result: **Qwen3.5-9B Q4_K_M generates about 52 tokens/sec
 | Kernel | 6.8.0-142-generic |
 | Driver | Mesa RADV 25.2.8 |
 | Runtime | llama.cpp, Vulkan backend, pinned commit `4da6337767f973e2b4d0797e5b323d77d8565e4a` |
-| Default model | Qwen3.5-9B Q4_K_M, 8K context, reasoning off |
+| Recommended model | Qwen3.5-9B Q4_K_M, 8K context, reasoning off |
 | Serving | LAN API, API-key authentication, systemd, one model resident at a time |
 
 The case, wall power and total purchase cost have not been recorded. PSU and cooling details are owner-reported; there are no power-efficiency claims here.
@@ -103,14 +103,25 @@ At 1,700 MHz, Qwen3.5-9B, Qwen3.5-4B, and Gemma 3 4B completed 63 image-input re
 
 [Standalone vision comparison: fixtures, answers, timings, and reproduction →](docs/vision-models.md)
 
+## Automatic hardware profiles
+
+The API now serializes model switches and selects a tested clock/voltage profile before loading each model. Qwen uses **1,700 MHz / 912.5 mV**, Gemma uses **1,800 MHz / 925 mV**, and the aggressive Qwen variant retains **1,700 MHz / 925 mV**. After 60 seconds of inactivity, the model unloads and the GPU returns to **1,200 MHz / 925 mV**.
+
+The screening covered 84 requests; live validation covered model switching, concurrency, vision, streaming and repeated 1,024-token generation. Sustained Z-Image at 1,700 MHz still hit the 85°C cutoff with the additional fan, so its retained image profile remains 1,200 MHz.
+
+[Standalone clock/voltage comparison, deployment details, raw results and rollback →](docs/automatic-profiles.md)
+
 ## Architecture
 
 ```mermaid
 flowchart LR
-    C[LAN clients / internal apps] -->|API key · Chat Completions| R[llama-server router]
+    C[LAN clients / internal apps] -->|API key · Chat Completions| G[Serialized API gateway]
+    G --> R[llama-server router · loopback]
+    G --> P[Local clock/voltage controller]
+    P --> V
     R --> W[One model worker · loopback]
     W --> V[Vulkan / RADV · 40 routed CUs]
-    A[Agent controller] -->|Model requests| R
+    A[Agent controller] -->|Model requests| G
     A -->|Separate SSH identity| L[Isolated lab service]
     U[CU startup service] -->|Runs before inference| R
 ```

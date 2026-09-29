@@ -1,0 +1,268 @@
+ggml_vulkan: Found 1 Vulkan devices:
+ggml_vulkan: 0 = AMD BC-250 (RADV GFX1013) (radv) | uma: 1 | fp16: 1 | bf16: 0 | fp4: 0 | warp size: 32 | shared memory: 65536 | int dot: 0 | matrix cores: none
+[INFO   ] diffusion_engine.cpp:732  - loading diffusion model from 'BENCH_ROOT/image-bench/models/flux-2-klein-4b-Q8_0.gguf'
+[INFO   ] model_loader.cpp:215  - load BENCH_ROOT/image-bench/models/flux-2-klein-4b-Q8_0.gguf using gguf format
+[INFO   ] diffusion_engine.cpp:789  - loading llm from 'BENCH_ROOT/image-bench/models/Qwen3-4B-Q4_K_M.gguf'
+[INFO   ] model_loader.cpp:215  - load BENCH_ROOT/image-bench/models/Qwen3-4B-Q4_K_M.gguf using gguf format
+[INFO   ] diffusion_engine.cpp:803  - loading vae from 'BENCH_ROOT/image-bench/models/flux2-vae.safetensors'
+[INFO   ] model_loader.cpp:221  - load BENCH_ROOT/image-bench/models/flux2-vae.safetensors using safetensors format
+[INFO   ] diffusion_engine.cpp:995  - Version: Flux.2 klein
+[WARN   ] backend_fit.cpp:444  - auto-fit: no GPU devices; using the default backend
+[INFO   ] diffusion_engine.cpp:1522 - Weight type stat:                      f32: 395  |    q8_0: 80   |    q4_K: 216  |    q6_K: 37   |     i32: 1    |    bf16: 69
+[INFO   ] diffusion_engine.cpp:1523 - Conditioner weight type stat:          f32: 145  |    q4_K: 216  |    q6_K: 37
+[INFO   ] diffusion_engine.cpp:1524 - Diffusion model weight type stat:     q8_0: 80   |    bf16: 69
+[INFO   ] diffusion_engine.cpp:1525 - VAE weight type stat:                  f32: 250  |     i32: 1
+[INFO   ] model_loader.cpp:878  - using mmap for 'BENCH_ROOT/image-bench/models/flux-2-klein-4b-Q8_0.gguf'
+[INFO   ] model_loader.cpp:878  - using mmap for 'BENCH_ROOT/image-bench/models/Qwen3-4B-Q4_K_M.gguf'
+[INFO   ] model_loader.cpp:878  - using mmap for 'BENCH_ROOT/image-bench/models/flux2-vae.safetensors'
+[INFO   ] model_builders.cpp:625  - using VAE for encoding / decoding
+[INFO   ] auto_encoder_kl.hpp:529  - vae decoder: ch = 128
+[INFO   ] diffusion_engine.cpp:1202 - Using flash attention in the diffusion model
+[INFO   ] diffusion_engine.cpp:1327 - total params memory size = 6637.75MB (VRAM 6637.75MB, RAM 0.00MB): text_encoders 2375.91MB(VRAM), diffusion_model 4101.40MB(VRAM), vae 160.43MB(VRAM), controlnet 0.00MB(N/A), extensions 0.00MB(N/A)
+[INFO   ] diffusion_engine.cpp:1472 - running in Flux FLOW mode
+[INFO   ] main.cpp:149  - listening on: http://127.0.0.1:18085
+[INFO   ] image.cpp:814  - generate_image 512x512
+[INFO   ] diffusion_engine.cpp:3012 - Using 'flux2' preset for reference images
+[INFO   ] denoiser.hpp:1186 - get_sigmas with Flux2 scheduler
+[INFO   ] request.cpp:420  - sampling using Euler method
+[INFO   ] ggml_graph_cut.cpp:1032 - qwen3 build cached graph cut plan done (taking 5 ms)
+
+  |#                                                 | 4/298 - 0.00MB/s[K
+  |#######                                           | 39/298 - 686.57MB/s[K
+  |###########                                       | 60/298 - 642.91MB/s[K
+  |##############                                    | 83/298 - 612.61MB/s[K
+  |##################                                | 106/298 - 609.55MB/s[K
+  |######################                            | 129/298 - 602.74MB/s[K
+  |##########################                        | 152/298 - 597.78MB/s[K
+  |##############################                    | 176/298 - 604.70MB/s[K
+  |###################################               | 203/298 - 617.34MB/s[K
+  |######################################            | 225/298 - 612.69MB/s[K
+  |##########################################        | 248/298 - 606.61MB/s[K
+  |############################################      | 259/298 - 578.89MB/s[K
+  |##################################################| 293/298 - 727.83MB/s[K
+  |##################################################| 298/298 - 707.29MB/s[K
+[INFO   ] model_loader.cpp:1378 - loading tensors completed, taking 2.60s (read: 2.03s, memcpy: 0.00s, convert: 0.00s, copy_to_backend: 0.35s)
+[INFO   ] image.cpp:529  - get_learned_condition completed, taking 3.56s
+[INFO   ] image.cpp:866  - generating image: 1/1 - seed 42
+[INFO   ] ggml_graph_cut.cpp:1032 - flux build cached graph cut plan done (taking 3 ms)
+
+  |##                                                | 5/149 - 0.00MB/s[K
+  |#####                                             | 12/149 - 94.68MB/s[K
+  |########                                          | 22/149 - 380.60MB/s[K
+  |###########                                       | 30/149 - 603.62MB/s[K
+  |#############                                     | 36/149 - 608.09MB/s[K
+  |################                                  | 46/149 - 695.98MB/s[K
+  |##################                                | 51/149 - 635.91MB/s[K
+  |####################                              | 59/149 - 681.58MB/s[K
+  |######################                            | 64/149 - 703.92MB/s[K
+  |########################                          | 70/149 - 678.46MB/s[K
+  |#########################                         | 74/149 - 658.45MB/s[K
+  |##########################                        | 75/149 - 616.04MB/s[K
+  |###########################                       | 78/149 - 580.44MB/s[K
+  |###############################                   | 90/149 - 732.65MB/s[K
+  |###############################                   | 90/149 - 680.39MB/s[K
+  |################################                  | 95/149 - 689.21MB/s[K
+  |#################################                 | 98/149 - 658.13MB/s[K
+  |####################################              | 106/149 - 706.34MB/s[K
+  |#####################################             | 110/149 - 701.63MB/s[K
+  |#######################################           | 115/149 - 707.48MB/s[K
+  |########################################          | 119/149 - 703.19MB/s[K
+  |###########################################       | 126/149 - 719.77MB/s[K
+  |############################################      | 130/149 - 704.46MB/s[K
+  |############################################      | 131/149 - 692.40MB/s[K
+  |###############################################   | 139/149 - 715.32MB/s[K
+  |################################################  | 143/149 - 711.57MB/s[K
+  |##################################################| 148/149 - 708.40MB/s[K
+  |##################################################| 149/149 - 748.57MB/s[K
+[INFO   ] model_loader.cpp:1378 - loading tensors completed, taking 5.48s (read: 4.71s, memcpy: 0.00s, convert: 0.00s, copy_to_backend: 0.45s)
+
+  |============>                                     | 1/4 - 8.13s/it[K
+  |=========================>                        | 2/4 - 1.87s/it[K
+  |=====================================>            | 3/4 - 1.87s/it[K
+  |==================================================| 4/4 - 1.87s/it[K
+[INFO   ] image.cpp:899  - sampling completed, taking 13.74s
+[INFO   ] image.cpp:911  - generating 1 latent images completed, taking 13.74s
+[INFO   ] image.cpp:554  - decoding 1 latents
+[INFO   ] ggml_graph_cut.cpp:1032 - vae build cached graph cut plan done (taking 0 ms)
+
+  |##                                                | 5/140 - 0.00MB/s[K
+  |################################################  | 133/140 - 628.23MB/s[K
+  |##################################################| 140/140 - 470.86MB/s[K
+[INFO   ] model_loader.cpp:1378 - loading tensors completed, taking 0.40s (read: 0.18s, memcpy: 0.00s, convert: 0.06s, copy_to_backend: 0.01s)
+
+  |=====>                                            | 1/9 - 1.39it/s[K
+  |===========>                                      | 2/9 - 5.38it/s[K
+  |================>                                 | 3/9 - 5.41it/s[K
+  |======================>                           | 4/9 - 5.38it/s[K
+  |===========================>                      | 5/9 - 5.38it/s[K
+  |=================================>                | 6/9 - 5.38it/s[K
+  |======================================>           | 7/9 - 5.41it/s[K
+  |============================================>     | 8/9 - 5.38it/s[K
+  |==================================================| 9/9 - 5.38it/s[K
+[INFO   ] image.cpp:620  - latent 1 decoded, taking 2.21s
+[INFO   ] image.cpp:624  - decode_first_stage completed, taking 2.21s
+[INFO   ] image.cpp:1050 - generate_image completed in 19.54s
+[INFO   ] image.cpp:814  - generate_image 1024x1024
+[INFO   ] diffusion_engine.cpp:3012 - Using 'flux2' preset for reference images
+[INFO   ] denoiser.hpp:1186 - get_sigmas with Flux2 scheduler
+[INFO   ] request.cpp:420  - sampling using Euler method
+[INFO   ] image.cpp:529  - get_learned_condition completed, taking 0.72s
+[INFO   ] image.cpp:866  - generating image: 1/1 - seed 42
+[INFO   ] ggml_graph_cut.cpp:1032 - flux build cached graph cut plan done (taking 2 ms)
+
+  |============>                                     | 1/4 - 6.38s/it[K
+  |=========================>                        | 2/4 - 6.22s/it[K
+  |=====================================>            | 3/4 - 6.22s/it[K
+  |==================================================| 4/4 - 6.21s/it[K
+[INFO   ] image.cpp:899  - sampling completed, taking 25.06s
+[INFO   ] image.cpp:911  - generating 1 latent images completed, taking 25.06s
+[INFO   ] image.cpp:554  - decoding 1 latents
+
+  |=>                                                | 1/49 - 4.10it/s[K
+  |==>                                               | 2/49 - 5.32it/s[K
+  |===>                                              | 3/49 - 5.38it/s[K
+  |====>                                             | 4/49 - 5.38it/s[K
+  |=====>                                            | 5/49 - 5.35it/s[K
+  |======>                                           | 6/49 - 5.38it/s[K
+  |=======>                                          | 7/49 - 5.38it/s[K
+  |========>                                         | 8/49 - 5.35it/s[K
+  |=========>                                        | 9/49 - 5.35it/s[K
+  |==========>                                       | 10/49 - 5.35it/s[K
+  |===========>                                      | 11/49 - 5.35it/s[K
+  |============>                                     | 12/49 - 5.35it/s[K
+  |=============>                                    | 13/49 - 5.38it/s[K
+  |==============>                                   | 14/49 - 5.32it/s[K
+  |===============>                                  | 15/49 - 5.38it/s[K
+  |================>                                 | 16/49 - 5.35it/s[K
+  |=================>                                | 17/49 - 5.35it/s[K
+  |==================>                               | 18/49 - 5.35it/s[K
+  |===================>                              | 19/49 - 5.35it/s[K
+  |====================>                             | 20/49 - 5.35it/s[K
+  |=====================>                            | 21/49 - 5.38it/s[K
+  |======================>                           | 22/49 - 5.35it/s[K
+  |=======================>                          | 23/49 - 5.38it/s[K
+  |========================>                         | 24/49 - 5.35it/s[K
+  |=========================>                        | 25/49 - 5.35it/s[K
+  |==========================>                       | 26/49 - 5.35it/s[K
+  |===========================>                      | 27/49 - 5.35it/s[K
+  |============================>                     | 28/49 - 5.38it/s[K
+  |=============================>                    | 29/49 - 5.35it/s[K
+  |==============================>                   | 30/49 - 5.35it/s[K
+  |===============================>                  | 31/49 - 5.32it/s[K
+  |================================>                 | 32/49 - 5.35it/s[K
+  |=================================>                | 33/49 - 5.35it/s[K
+  |==================================>               | 34/49 - 5.32it/s[K
+  |===================================>              | 35/49 - 5.35it/s[K
+  |====================================>             | 36/49 - 5.38it/s[K
+  |=====================================>            | 37/49 - 5.38it/s[K
+  |======================================>           | 38/49 - 5.32it/s[K
+  |=======================================>          | 39/49 - 5.35it/s[K
+  |========================================>         | 40/49 - 5.35it/s[K
+  |=========================================>        | 41/49 - 5.35it/s[K
+  |==========================================>       | 42/49 - 5.35it/s[K
+  |===========================================>      | 43/49 - 5.35it/s[K
+  |============================================>     | 44/49 - 5.35it/s[K
+  |=============================================>    | 45/49 - 5.35it/s[K
+  |==============================================>   | 46/49 - 5.38it/s[K
+  |===============================================>  | 47/49 - 5.35it/s[K
+  |================================================> | 48/49 - 5.38it/s[K
+  |==================================================| 49/49 - 5.38it/s[K
+[INFO   ] image.cpp:620  - latent 1 decoded, taking 9.22s
+[INFO   ] image.cpp:624  - decode_first_stage completed, taking 9.22s
+[INFO   ] image.cpp:1050 - generate_image completed in 35.05s
+[INFO   ] image.cpp:814  - generate_image 512x512
+[INFO   ] diffusion_engine.cpp:3012 - Using 'flux2' preset for reference images
+[INFO   ] denoiser.hpp:1186 - get_sigmas with Flux2 scheduler
+[INFO   ] request.cpp:420  - sampling using Euler method
+[INFO   ] conditioning_cache.h:91   - conditioning cache hit
+[INFO   ] image.cpp:529  - get_learned_condition completed, taking 0.04s
+[INFO   ] image.cpp:866  - generating image: 1/1 - seed 42
+
+  |============>                                     | 1/4 - 1.93s/it[K
+  |=========================>                        | 2/4 - 1.87s/it[K
+  |=====================================>            | 3/4 - 1.87s/it[K
+  |==================================================| 4/4 - 1.87s/it[K
+[INFO   ] image.cpp:899  - sampling completed, taking 7.54s
+[INFO   ] image.cpp:911  - generating 1 latent images completed, taking 7.54s
+[INFO   ] image.cpp:554  - decoding 1 latents
+
+  |=====>                                            | 1/9 - 4.41it/s[K
+  |===========>                                      | 2/9 - 5.35it/s[K
+  |================>                                 | 3/9 - 5.38it/s[K
+  |======================>                           | 4/9 - 5.38it/s[K
+  |===========================>                      | 5/9 - 5.35it/s[K
+  |=================================>                | 6/9 - 5.35it/s[K
+  |======================================>           | 7/9 - 5.35it/s[K
+  |============================================>     | 8/9 - 5.38it/s[K
+  |==================================================| 9/9 - 5.38it/s[K
+[INFO   ] image.cpp:620  - latent 1 decoded, taking 1.72s
+[INFO   ] image.cpp:624  - decode_first_stage completed, taking 1.72s
+[INFO   ] image.cpp:1050 - generate_image completed in 9.32s
+[INFO   ] image.cpp:814  - generate_image 1024x1024
+[INFO   ] diffusion_engine.cpp:3012 - Using 'flux2' preset for reference images
+[INFO   ] denoiser.hpp:1186 - get_sigmas with Flux2 scheduler
+[INFO   ] request.cpp:420  - sampling using Euler method
+[INFO   ] conditioning_cache.h:91   - conditioning cache hit
+[INFO   ] image.cpp:529  - get_learned_condition completed, taking 0.01s
+[INFO   ] image.cpp:866  - generating image: 1/1 - seed 42
+
+  |============>                                     | 1/4 - 6.31s/it[K
+  |=========================>                        | 2/4 - 6.22s/it[K
+  |=====================================>            | 3/4 - 6.22s/it[K
+  |==================================================| 4/4 - 6.22s/it[K
+[INFO   ] image.cpp:899  - sampling completed, taking 25.02s
+[INFO   ] image.cpp:911  - generating 1 latent images completed, taking 25.02s
+[INFO   ] image.cpp:554  - decoding 1 latents
+
+  |=>                                                | 1/49 - 4.55it/s[K
+  |==>                                               | 2/49 - 5.35it/s[K
+  |===>                                              | 3/49 - 5.38it/s[K
+  |====>                                             | 4/49 - 5.35it/s[K
+  |=====>                                            | 5/49 - 5.35it/s[K
+  |======>                                           | 6/49 - 5.38it/s[K
+  |=======>                                          | 7/49 - 5.35it/s[K
+  |========>                                         | 8/49 - 5.38it/s[K
+  |=========>                                        | 9/49 - 5.38it/s[K
+  |==========>                                       | 10/49 - 5.32it/s[K
+  |===========>                                      | 11/49 - 5.35it/s[K
+  |============>                                     | 12/49 - 5.35it/s[K
+  |=============>                                    | 13/49 - 5.32it/s[K
+  |==============>                                   | 14/49 - 5.38it/s[K
+  |===============>                                  | 15/49 - 5.35it/s[K
+  |================>                                 | 16/49 - 5.35it/s[K
+  |=================>                                | 17/49 - 5.32it/s[K
+  |==================>                               | 18/49 - 5.35it/s[K
+  |===================>                              | 19/49 - 5.35it/s[K
+  |====================>                             | 20/49 - 5.35it/s[K
+  |=====================>                            | 21/49 - 5.38it/s[K
+  |======================>                           | 22/49 - 5.35it/s[K
+  |=======================>                          | 23/49 - 5.35it/s[K
+  |========================>                         | 24/49 - 5.32it/s[K
+  |=========================>                        | 25/49 - 5.38it/s[K
+  |==========================>                       | 26/49 - 5.35it/s[K
+  |===========================>                      | 27/49 - 5.32it/s[K
+  |============================>                     | 28/49 - 5.35it/s[K
+  |=============================>                    | 29/49 - 5.35it/s[K
+  |==============================>                   | 30/49 - 5.38it/s[K
+  |===============================>                  | 31/49 - 5.35it/s[K
+  |================================>                 | 32/49 - 5.32it/s[K
+  |=================================>                | 33/49 - 5.35it/s[K
+  |==================================>               | 34/49 - 5.35it/s[K
+  |===================================>              | 35/49 - 5.38it/s[K
+  |====================================>             | 36/49 - 5.35it/s[K
+  |=====================================>            | 37/49 - 5.35it/s[K
+  |======================================>           | 38/49 - 5.35it/s[K
+  |=======================================>          | 39/49 - 5.38it/s[K
+  |========================================>         | 40/49 - 5.35it/s[K
+  |=========================================>        | 41/49 - 5.32it/s[K
+  |==========================================>       | 42/49 - 5.35it/s[K
+  |===========================================>      | 43/49 - 5.38it/s[K
+  |============================================>     | 44/49 - 5.32it/s[K
+  |=============================================>    | 45/49 - 5.35it/s[K
+  |==============================================>   | 46/49 - 5.38it/s[K
+  |===============================================>  | 47/49 - 5.32it/s[K
+  |================================================> | 48/49 - 5.38it/s[K
+  |==================================================| 49/49 - 5.32it/s[K
+[INFO   ] image.cpp:620  - latent 1 decoded, taking 9.20s
+[INFO   ] image.cpp:624  - decode_first_stage completed, taking 9.20s
+[INFO   ] image.cpp:1050 - generate_image completed in 34.28s

@@ -1,0 +1,24 @@
+[Unit]
+Description=BC250 authenticated API with automatic model hardware profiles
+Wants=bc250-ai.service bc250-profile-controller.service
+After=bc250-ai.service bc250-profile-controller.service network-online.target
+
+[Service]
+User=bc250-ai
+Group=bc250-ai
+ExecStart=/usr/bin/python3 /usr/local/libexec/bc250-api-gateway.py
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=15
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+MemoryMax=512M
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+IPAddressDeny=any
+IPAddressAllow=localhost
+IPAddressAllow=192.0.2.0/24
+
+[Install]
+WantedBy=multi-user.target

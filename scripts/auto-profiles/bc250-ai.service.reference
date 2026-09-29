@@ -1,0 +1,28 @@
+# Equivalent complete backend unit for reference; the deployed existing service
+# receives these endpoint/profile settings through 30-profile-backend.conf.
+[Unit]
+Description=BC250 internal authenticated model router
+Wants=network-online.target bc250-profile-controller.service bc250-cu-live-manager.service
+After=network-online.target bc250-profile-controller.service bc250-cu-live-manager.service
+
+[Service]
+User=bc250-ai
+Group=bc250-ai
+SupplementaryGroups=render video
+WorkingDirectory=/opt/bc250-ai/llama.cpp
+ExecStart=/opt/bc250-ai/llama.cpp/build/bin/llama-server --models-preset /etc/bc250-ai/models.ini --models-max 1 --no-models-autoload --host 127.0.0.1 --port 18080 --api-key-file /etc/bc250-ai/api-key
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=30
+MemoryMax=14G
+MemorySwapMax=0
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/bc250-ai
+IPAddressDeny=any
+IPAddressAllow=localhost
+
+[Install]
+WantedBy=multi-user.target
