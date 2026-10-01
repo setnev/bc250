@@ -31,7 +31,7 @@ The original CU-unlock result: **Qwen3.5-9B Q4_K_M generates about 52 tokens/sec
 | Recommended model | Qwen3.5-9B Q4_K_M, 8K context, reasoning off |
 | Serving | LAN API, API-key authentication, systemd, one model resident at a time |
 
-The case, wall power and total purchase cost have not been recorded. PSU and cooling details are owner-reported; there are no power-efficiency claims here.
+The case, wall power and total purchase cost have not been recorded. I supplied the PSU and cooling details, but I have not measured power efficiency.
 
 ## What the GPU unlock changed
 
@@ -119,9 +119,9 @@ The screening covered 84 requests; live validation covered model switching, conc
 
 ## Server operations comparison
 
-Qwen3.5-9B passed **146 of 240** SHA-bound automated-review operations trials, versus **29** for 0.8B, **44** for 2B and **59** for the 2B-worker/9B-planner combination. The 4B model passed **95 of 175 executed trials** before a synthetic-token disclosure triggered its critical stop; 65 declared slots remained unexecuted. No candidate established broad autonomous administrator eligibility.
+In my adjudicated comparison, Qwen3.5-9B passed **152 of 240** operations trials, versus **29** for 0.8B, **45** for 2B and **61** for the 2B-worker/9B-planner combination. I retained the C02 inventory-pass exception and made G14/G16 observed unresolved-state reporting optional for completion; original grades, component credits and serious-failure flags remain preserved. The 4B model passed **95 of 175 executed trials** before a synthetic-token disclosure triggered its critical stop; 65 declared slots remained unexecuted. No candidate established broad autonomous administrator eligibility.
 
-Frontier parity is **uncalibrated**, and real administrator workload/time savings remain unmeasured. The standalone comparison records severity, impact, complexity, criticality and security weighting, domain results, initial-condition variation, tool latency and separate corrective tests. The 24-hour stability run completed all 301 jobs and passed the recorded operational gates; one fault had a model semantic failure, and ambiguous semantic judgments remain provisional pending human review.
+Frontier parity is **uncalibrated**, and real administrator workload/time savings remain unmeasured. The standalone comparison records severity, impact, complexity, criticality and security weighting, domain results, initial-condition variation, tool latency and separate corrective tests. The 24-hour stability run completed all 301 jobs and passed the recorded operational gates; one fault had a model semantic failure. I resolved the identified criterion ambiguities in a separate SHA-bound adjudication.
 
 [Standalone server operations findings, exact criteria, sanitized evidence and reproduction](docs/server-operations.md)
 

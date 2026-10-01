@@ -24,7 +24,7 @@ Each model stayed loaded while profiles were tested in this order: 1,700 MHz / 9
 
 The vision prompt is: `Read the dashboard. Return JSON with keys degraded_service, cpu_percent (integer), ram_gb (number), queue_jobs (integer).` Reference: worker, 91, 5.8, 137.
 
-![Synthetic Anthos.AI dashboard](../assets/automatic-profiles/dashboard.png)
+![Synthetic dashboard fixture](../assets/automatic-profiles/dashboard.png)
 
 The text prompt is: `Explain how a database transaction provides atomicity, consistency, isolation and durability. Give concrete examples and continue for at least 400 words.` The warm-up prompt is `Reply only OK.`
 

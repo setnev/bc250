@@ -35,7 +35,7 @@ Exact byte counts and hashes: [weight manifest](../benchmarks/vision/download-ma
 
 ## Method
 
-Six synthetic 1024x768 PNG fixtures, generated with Pillow and DejaVu Sans, contain no real screenshots, people, account identifiers, network addresses, or private system data. Anthos.AI is the only project branding. PNGs contain no personal metadata. The fixed fixtures, exact prompts, expected answers, and image hashes are included below and in [cases.json](../benchmarks/vision/cases.json).
+Six synthetic 1024x768 PNG fixtures, generated with Pillow and DejaVu Sans, contain no real screenshots, people, account identifiers, network addresses, or private system data. Synthetic server labels are fixture content, not a claim about deployment. PNGs contain no personal metadata. The fixed fixtures, exact prompts, expected answers, and image hashes are included below and in [cases.json](../benchmarks/vision/cases.json).
 
 Each fixture was submitted three consecutive times with identical input and no intervening request: first encounter, repeat 2, repeat 3. Temperature 0, seed 42, maximum 256 output tokens, streaming enabled, no forced JSON schema. The first request includes image processing and any needed graph warm-up, but excludes model loading; filesystem/driver caches were not cleared. Warm repeats reuse active-slot prompt state. Afterwards, a separate three-turn dashboard conversation tests follow-up arithmetic and absent-information handling. Total: 18 fixture requests plus 3 conversation requests per model, 63 requests overall.
 
