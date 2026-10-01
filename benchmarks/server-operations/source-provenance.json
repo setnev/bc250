@@ -1,0 +1,83 @@
+{
+  "as_tested_main_source_sha256": {
+    "main-agent.py": "3693497c20cf55f271a0056ef7b0c4bc108489a5d66a4ba2d1d14ed8f61eaf44",
+    "agent_core.py": "181e9d2e9382a4f200e64c7b2ff526748acaad0d7284266150683bb5ee7dbe69",
+    "task_inputs.py": "0eeb76a0e9acce1c3fdb8cb4babd86b2fe3058cafd9bac8fa857a4fbd6178c60",
+    "cases.json": "0df697fd890a04e407291a4ac8bc8e85dbb4178cb78900d21b2f1dfbd0aed1a4",
+    "rubrics-draft.json": "7639cf4520e52e65a2a1b10780634d1ae5a7932aca0725d1f33db58e20cf09c7",
+    "evaluator-criteria.json": "6796cad926a460c38050f5489c937eb210ed61d40360198c1c0de988d6ce5848",
+    "score.py": "26e8742b8b0a4252897d62bb1042c3fa576537dfc370aab43e2d315b3f90290d",
+    "fixture-reset.py": "8148740e56a5f38ce99c53904fc6927b780aa0c137425dbac5364e532bfaa23e",
+    "fixture_special.py": "de891d5f2cd887602a9d9683a7637a293ec1026205482d531860175be81adb88",
+    "fixture-support.py": "4130930a1d4cf475b53947e4031b75435dd8c5f8ea4a4b19edf1c3fe703712c5",
+    "identity-fixture.py": "3fd787651e1ae567f18f5e09978c43b4a667a251adf6ad003ce1adb34ff84c07",
+    "evidence.py": "bc14abd5c385b9a02fa01a069758a23f8026678ce75bde360db58c9db9261f02",
+    "runbook_actions.py": "60374bb81d5758d07e2e39b84e0efbf8027ed725a3771952bd727095b9bfcb9f",
+    "runbook_catalog.py": "e17dbc407a6b91361f2c0aed0919b98056c368c7820a9d3bea6cfab7f93c4f5e",
+    "runbooks-v2.json": "4cc83c8dbc175acc159665f06adb1df2d835c9db6dbe18aeb2bd4e85b09dc7de",
+    "release_support.py": "a0e9f94cde80b1a01459d88032023f73e45e1149bf28caabdc225aed3d110405",
+    "vm_executor.py": "e3f292eac8e849b5fbf50309e5b4309b3d867bd9732035677355b136ba22ca16",
+    "policy.py": "2d4f2060bc16c638d817de21dd572da31e5f2ebce42e68d2256f4416a76523b3",
+    "task_registry.py": "70d0375fe4cc383e7b96e59ddeb07f1b4445b3a450c2cc8c31d30957efb57628",
+    "issue-grant.py": "a6b0f7da1063845cd1b1999350e6963edd304ad0ce2c7cdaa4c7d980084e5308",
+    "transport-faults.py": "e2443640e7a7536a1a2b4239b3560986f34bb9e58f83c206eb67029fc49dba39",
+    "worker_crash_fixture.py": "20daf5ed29ef133f53164067dfd14191b074607b6a999a0187cb02bba9849ba5",
+    "lease-fixture.py": "4ec329489703964381b35616781d679bee39c49a03436c5c20db5b7de9004452",
+    "fault_proxy.py": "af72444941a647dccc44e48bd92817488d2a8cd7350a875e7f0685b0abe42384",
+    "harness_verify.py": "fdac357d0ad97b731a19c9d025e2400a46947f687bf584037239d0f95289ab95",
+    "snapshot_control.py": "7f6612888ea81ff52e7eb4fb4fa1165e02f12b14aa00474d04fb339949f9bd06",
+    "models.ini": "49264b5af969888a6fc418977cc686ee5fcd264876f6c6c7f8fb5392d0599f0e",
+    "bench-window.py": "729cd207bf9fa56fca1f47cb68e6345c02ae6ae3f851639ade50c69234e032c0",
+    "model-manifest-draft.json": "2a096aa58b5a55a9e64196d37202af2de26a7e08332e8da6c2e0f270cf04e4f0",
+    "release-artifact-manifest.json": "e7d8ea1598c8a47fda9a72d0120ec85e93585f7cc430d21b29e9250973e33468",
+    "main-fixture-manifest.json": "4eb7119e5b84fdc1151a7ef716b26901698b36ab5fe692d502e0ba50725d3919",
+    "bc250-ops-lab.service": "5075589b34cb007beeeb086eb8d33e60abf2011274c5cb6e533a07add597afc9",
+    "restore.py": "8767734af19a5b4eeda413d4b35a8f5912562f44f3fcd01057aec6ff5a6ea792"
+  },
+  "portable_adaptations": {
+    "remote.py": "Inference-host SSH configured through environment and pinned operator-supplied known_hosts; no password or owner identity.",
+    "test_api.py": "Operator-supplied endpoint/API key through environment.",
+    "ops-bench/open-tunnels.py": "As-tested three benchmark/VM loopback forwards plus owner-configured production API forward18081 for recovery/soak.",
+    "ops-bench/soak_api.py": "Operator-supplied endpoint and authentication are required when a request is made; offline imports need no credentials. No default endpoint/key or inference transport fallback. Streaming/request behavior is retained; tests mock all network I/O.",
+    "ops-bench/lab-build/prepare-vm.py": "Fresh generated guest SSH host key supplied in cloud-init; pin is derived directly, rather than copied from the private run.",
+    "ops-bench/generate-lab-keys.py": "Generates new test-only keys, never distributes private credentials.",
+    "ops-bench/install-lab-host.py": "New explicit-image transfer/checksum helper; refuses existing lab directory/unit; fresh overlays, same restricted QEMU unit. Not exercised against active lab.",
+    "ops-bench/freeze-lab-snapshot.py": "New fresh-snapshot helper requiring240validated fault predicates and pinned healthy restore; regenerates private image digest manifest. Not exercised against active lab.",
+    "ops-bench/install-window-host.py": "New transfer/installation helper for exact as-tested window sources/unit; does not start inference and refuses existing unit.",
+    "profile-runtime/production-soak-models.ini": "Reproduction template retains tested4B/9B projectors and defaults; preserved live catalog is not modified.",
+    "profile-runtime/unit-templates": "Captured as-tested services, private LAN address/range replaced with loopback. SourceSHA retained separately.",
+    "ops-bench/synthetic-disclosure-canary": {
+      "files": [
+        "reproduce/ops-bench/main-agent.py",
+        "reproduce/ops-bench/test_publication_privacy.py",
+        "reproduce/ops-bench/prepare-fixtures.py",
+        "reproduce/ops-bench/fixture-reset.py",
+        "reproduce/ops-bench/fixture_special.py"
+      ],
+      "method": "Historical synthetic token is redacted in public measured transcripts/as-tested source archives. Executable portable fixtures and detector instead consistently use a fresh clearly public test-only canary, preserving disclosure-vs-redaction semantics. A literal [REDACTED] is not used as the disclosure detector token. Fresh runs generate their own source/image/protocol hashes and are not byte-identical replays of historical prompts."
+    },
+    "ops-bench/audit-public-evidence.py": "Post-export fidelity audit additionally checks rationale-only amendments against actual original/public grades and final word counts, unchanged scores/flags, and optional post-timing artifacts. Run against the complete archive; this tooling is outside the measured execution source sets.",
+    "ops-bench/export-public-results.py": "Post-timing exporter adds the separate rationale-only correction trail with original/public transcript and canonical grade hash binding; optional post-timing hardware/runtime/catalog/package artifacts are sanitized. Original grades and aggregates are unchanged. Not part of measured execution source sets."
+  },
+  "images": "Private golden images and seed include test-only keys and are excluded. Rebuilding regenerates keys/PKI/image digests; validate all fault predicates and freeze newly built snapshots before scoring.",
+  "runtime_code": "Exact installed profile/gateway/CPU/SMU helper copies retained with SHA-256 and original SMU attribution/license.",
+  "status": "Measured evidence export and fidelity/privacy checks complete; ambiguous automated semantic judgments remain provisional pending human adjudication.",
+  "separate_phase_archives": {
+    "latency": "Main33sources plus exact latency-bench.py/analyze-latency.py; archived before first latency probe.",
+    "file_restore_supplement": "Main sources with only evidence.py/policy.py read overlays plus fixed-file probe/supplement driver; original pins retained. Expanded model-visible read interface, unchanged writes/authorization; never silently pooled with main. Archives36 sources with critical-screening validator; stopped candidates retain unexecuted slots.",
+    "production_gateway_smoke": "Two actual production gateway/controller preflight transcripts, independent SHA-bound reviews and source/selection provenance; unscored apparatus phase, never counted as main/latency/timed24-hour jobs. Archives42 sources including message-prompt provenance validator; timed soak archives44.",
+    "message_prompt_clarification": "Main33 sources unchanged except exact one-sentence A06 hash-verification clarification, plus driver, prompt validator and critical-screening validator (36 sources). Original pins/grades/index retained; three unscored actual VM validations and15 declared independently reviewed records (executed eligible models or screened slots), never pooled with main."
+  },
+  "critical_screening": "Approved immediate candidate stop after actual critical disclosure/escape; validate genuine prior failure, forbid later autonomous execution, retain all declared slots without inventing measured coverage or a full index. Public screening references rebind to public critical-record SHA and retain original private SHA separately.",
+  "privacy_address_roles": "The physical inference-host address, if present in captured metadata, maps to192.0.2.250. Synthetic incident sources retain192.0.2.40\u201342, preserving their distinction from the host. No model-observed fixture IP is remapped merely because it resembles the publication pseudonym.",
+  "privacy_host_boot_identity": "Actual physical-host boot identifier replaced with stable test pseudonym in public data; continuity predicates and timings unchanged. Disposable guest boot IDs retain synthetic fixture semantics.",
+  "publication_tooling_validation": {
+    "private_targeted_export_privacy_tests": 16,
+    "portable_targeted_export_privacy_canary_tests": 19,
+    "full_offline_suite": "See publication audit for actual completed count; apparatus tests are not model quality or human review.",
+    "portable_offline_suite": {
+      "tests": 86,
+      "passed": true
+    }
+  }
+}

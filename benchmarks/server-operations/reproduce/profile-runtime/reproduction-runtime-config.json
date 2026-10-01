@@ -1,0 +1,43 @@
+{
+  "profile_template": {
+    "clock_control": "/usr/local/libexec/bc250-profile-clock.py",
+    "socket": "/run/bc250-profile/control.sock",
+    "client_user": "bc250-ai",
+    "models": {
+      "qwen3.5-9b": "anthos-sustained",
+      "qwen3.5-4b": "qwen-balanced"
+    },
+    "profiles": {
+      "idle": {
+        "mhz": 1200,
+        "vid": 100
+      },
+      "baseline": {
+        "mhz": 1700,
+        "vid": 100
+      },
+      "qwen-balanced": {
+        "mhz": 1700,
+        "vid": 102
+      },
+      "anthos-sustained": {
+        "mhz": 1200,
+        "vid": 100
+      }
+    },
+    "cutoff_c": 85
+  },
+  "gateway_template": {
+    "key_file": "/etc/bc250-ai/api-key",
+    "socket": "/run/bc250-profile/control.sock",
+    "backend_port": 18080,
+    "listen_port": 8080,
+    "backend_host": "127.0.0.1",
+    "listen_host": "127.0.0.1",
+    "models": [
+      "qwen3.5-9b",
+      "qwen3.5-4b"
+    ]
+  },
+  "adaptation": "Gateway binding replaced by loopback; only tested4B/9B aliases retained. Generated API key required. Source profile settings preserved."
+}

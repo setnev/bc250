@@ -1,0 +1,25 @@
+[
+  {
+    "utc": "2026-09-30T19:09:51.346752+00:00",
+    "phase": "production-gateway-smoke",
+    "attempt": "before-preset-parser-fix",
+    "status": "apparatus_startup_failure",
+    "failure": "Runtime capture used ordinary INI parsing on llama.cpp version=1 header preceding [*], causing MissingSectionHeaderError before any job. Shared [*] options also require explicit inheritance.",
+    "executed_model_jobs": 0,
+    "timed_soak_started": false,
+    "host_mutations": false,
+    "as_tested_protocol_sha256": "8b79f5753161ca6e0f53fd4d4ad33c3944aff69aaab6b5cbc3e641755c811b63",
+    "correction": "Capture parser accepts the llama.cpp version header and merges shared [*] with model overrides; preserve original failed apparatus sources separately. Three capture-format regressions passed before a fresh preflight. Runtime helpers and production configuration were unchanged."
+  },
+  {
+    "utc": "2026-09-30T19:16:19.446092+00:00",
+    "phase": "24-hour-soak",
+    "attempt": "before-kernel-query-fix",
+    "status": "apparatus_initialization_failure",
+    "failure": "Initial journalctl grep returned1/empty stdout/empty stderr for no matching GPU/OOM events; generic host wrapper treated this as command failure. No jobs or durable timed protocol had started.",
+    "executed_model_jobs": 0,
+    "timed_soak_started": false,
+    "as_tested_soak_source_sha256": "8db97b54eaed15efac5b665651fc46e0444628ddbda2af1c614fbea9979869e9",
+    "correction": "Capture query status/output explicitly; allow only ordinary silent no-match status1, retain actual events and diagnostic/nonstandard failures. Three query regressions passed; unchanged scheduling/preflight tests passed. Archive failed initialization and rerun the two-job preflight because its soak source hash changed."
+  }
+]

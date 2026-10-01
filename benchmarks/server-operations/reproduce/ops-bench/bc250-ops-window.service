@@ -1,0 +1,12 @@
+[Unit]
+Description=Bounded server operations inference benchmark window
+After=network.target
+[Service]
+ExecStart=/usr/bin/python3 /opt/bc250-mod-prep/ops-bench/bench-window.py
+ExecStopPost=/usr/bin/python3 /opt/bc250-mod-prep/ops-bench/restore.py
+MemoryMax=11G
+MemorySwapMax=0
+RuntimeMaxSec=10830
+TimeoutStopSec=45
+KillMode=mixed
+Restart=no

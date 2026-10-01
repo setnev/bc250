@@ -1,0 +1,26 @@
+[Unit]
+Description=BC250 Qwen LAN inference API
+Wants=network-online.target
+After=network-online.target
+StartLimitIntervalSec=300
+StartLimitBurst=3
+
+[Service]
+User=bc250-ai
+Group=bc250-ai
+SupplementaryGroups=render video
+WorkingDirectory=/opt/bc250-ai/llama.cpp
+ExecStart=/opt/bc250-ai/llama.cpp/build/bin/llama-server --models-preset /etc/bc250-ai/models.ini --models-max 1 --host 127.0.0.1 --port 8080 --api-key-file /etc/bc250-ai/api-key
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=30
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/bc250-ai
+IPAddressDeny=any
+IPAddressAllow=localhost
+
+[Install]
+WantedBy=multi-user.target

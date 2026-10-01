@@ -1,0 +1,71 @@
+{
+  "runtime_helpers": {
+    "bc250-profile-controller.py": {
+      "sha256": "46d4639d07c4328c081d751e314d56c80ec6f15a0bfed698095d1ef18c213726"
+    },
+    "bc250-api-gateway.py": {
+      "sha256": "88d780fc88c8c996fe17d348c2cec50ec6e2781a16e7a551156290c98e8a77ba"
+    },
+    "cpu_power.py": {
+      "sha256": "fd733d12a6f109108e0010bba6be7f6cfe5dac01ddcf420606f99b2be498e413"
+    },
+    "bc250-profile-clock.py": {
+      "sha256": "bfc06fe62af09c4d5024455d2ed0f3f4bde8018a04eeecd9370c39b03b8805a8"
+    }
+  },
+  "llama_server_sha256": "a4d09e2fe7b05c79195853edbbcf8e724bd9230dce03ab5d002d72a088d87b00",
+  "production_config_sha256": {
+    "profiles.json": "c36919b48b94b74b1d1ed2da2455c09803e86450e1a3e1534446bc9775be71a9",
+    "gateway.json": "3bfe105f43f7f894aecc1cb0b3cf60094dc5d373d7f03c2a752ce2c8e8af01f1",
+    "models.ini": "497673547113341cf6737e645f26c5c3864cff773e7f7798ab276eedd45c73f3"
+  },
+  "models": {
+    "qwen3.5-9b": {
+      "ctx-size": "8192",
+      "parallel": "1",
+      "threads": "6",
+      "n-gpu-layers": "99",
+      "flash-attn": "on",
+      "reasoning": "off",
+      "jinja": "true",
+      "batch-size": "128",
+      "ubatch-size": "128",
+      "load-on-startup": "false",
+      "cache-ram": "0",
+      "model": "/var/lib/bc250-ai/models/Qwen3.5-9B-Q4_K_M.gguf",
+      "mmproj": "/opt/bc250-mod-prep/vision-bench/models/Qwen3.5-9B-GGUF--mmproj-F16.gguf"
+    }
+  },
+  "projectors": [
+    {
+      "model": "qwen3.5-9b",
+      "repo": "unsloth/Qwen3.5-9B-GGUF",
+      "revision": "3885219b6810b007914f3a7950a8d1b469d598a5",
+      "source_filename": "mmproj-F16.gguf",
+      "filename": "Qwen3.5-9B-GGUF--mmproj-F16.gguf",
+      "size": 918166080,
+      "sha256": "f70dc3509053962b0d0d3ee8a7eacebf5d60aa560cad78254ae8698516ae029f",
+      "url": "https://huggingface.co/unsloth/Qwen3.5-9B-GGUF/resolve/3885219b6810b007914f3a7950a8d1b469d598a5/mmproj-F16.gguf",
+      "observed_sha256": "f70dc3509053962b0d0d3ee8a7eacebf5d60aa560cad78254ae8698516ae029f",
+      "observed_bytes": 918166080
+    }
+  ],
+  "model_profiles": {
+    "qwen3.5-9b": "anthos-sustained"
+  },
+  "profiles": {
+    "anthos-sustained": {
+      "mhz": 1200,
+      "vid": 100
+    },
+    "baseline": {
+      "mhz": 1700,
+      "vid": 100
+    },
+    "idle": {
+      "mhz": 1200,
+      "vid": 100
+    }
+  },
+  "projector_configuration": "Existing production vision projectors retained for text-only requests; fixed-clock comparison presets omit projectors. Memory/load figures are separate configurations."
+}

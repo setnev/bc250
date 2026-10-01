@@ -1,0 +1,25 @@
+[Unit]
+Description=Disposable server operations VM lab
+After=network.target
+[Service]
+User=bc250-ops-vm
+Group=bc250-ops-vm
+SupplementaryGroups=kvm
+ExecStart=/usr/bin/qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 1536 -display none -serial file:/opt/bc250-mod-prep/ops-bench/lab/serial.log -drive file=/opt/bc250-mod-prep/ops-bench/lab/work.qcow2,if=virtio,format=qcow2 -drive file=/opt/bc250-mod-prep/ops-bench/lab/data-work.qcow2,if=virtio,format=qcow2,id=opsdata -drive file=/opt/bc250-mod-prep/ops-bench/lab/seed.iso,media=cdrom,readonly=on -netdev user,id=net0,restrict=on,hostfwd=tcp:127.0.0.1:22219-:22,hostfwd=tcp:127.0.0.1:22220-:18885,hostfwd=tcp:127.0.0.1:28880-:18880 -device virtio-net-pci,netdev=net0 -qmp unix:/opt/bc250-mod-prep/ops-bench/lab/qmp.sock,server=on,wait=off
+MemoryMax=2G
+MemorySwapMax=0
+CPUQuota=200%
+CPUWeight=20
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/opt/bc250-mod-prep/ops-bench/lab
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RuntimeMaxSec=604800
+TimeoutStopSec=20
+KillMode=mixed
+Restart=no
