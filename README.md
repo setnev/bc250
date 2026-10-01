@@ -125,6 +125,8 @@ Frontier parity is **uncalibrated**, and real administrator workload/time saving
 
 [Standalone server operations findings, exact criteria, sanitized evidence and reproduction](docs/server-operations.md)
 
+[Integration guide: model roles, prompts, API client, SSH executor and verification](docs/server-operations-integration.md)
+
 ## Architecture
 
 ```mermaid
